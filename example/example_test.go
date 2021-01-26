@@ -7,7 +7,7 @@ import (
 	hugocontent "github.com/sters/simple-hugo-content-parse"
 )
 
-func ExampleParseAndDump() {
+func ExampleParseMarkdownWithYaml() {
 	raw := `---
 foo: bar
 baz: 1
