@@ -10,11 +10,64 @@ import (
 	"github.com/morikuni/failure"
 )
 
+// FrontMatter is metadata for MarkdownContent
+type FrontMatter map[string]interface{}
+
+func (f FrontMatter) getField(fieldname string) interface{} {
+	field, ok := f[fieldname]
+	if !ok {
+		return nil
+	}
+	return field
+}
+
+func (f FrontMatter) GetInt(fieldname string) int {
+	r, ok := f.getField(fieldname).(int)
+	if !ok {
+		return 0
+	}
+
+	return r
+}
+
+func (f FrontMatter) GetString(fieldname string) string {
+	r, ok := f.getField(fieldname).(string)
+	if !ok {
+		return ""
+	}
+
+	return r
+}
+
+func (f FrontMatter) GetStrings(fieldname string) []string {
+	ss, ok := f.getField(fieldname).([]string)
+	if ok {
+		return ss
+	}
+
+	si, ok := f.getField(fieldname).([]interface{})
+	if !ok {
+		return nil
+	}
+
+	result := make([]string, 0, len(si))
+	for _, s := range si {
+		r, ok := s.(string)
+		if !ok {
+			continue
+		}
+
+		result = append(result, r)
+	}
+
+	return result
+}
+
 // MarkdownContent for hugo
 // https://gohugo.io/content-management/formats/
 type MarkdownContent struct {
 	// FrontMatter is metadata for this content
-	FrontMatter map[string]interface{}
+	FrontMatter FrontMatter
 	// Body for this content
 	Body string
 }
