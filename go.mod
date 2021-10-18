@@ -3,7 +3,7 @@ module github.com/sters/simple-hugo-content-parse
 go 1.16
 
 require (
-	github.com/goccy/go-yaml v1.9.3
+	github.com/goccy/go-yaml v1.9.4
 	github.com/golangci/golangci-lint v1.42.1
 	github.com/google/go-cmp v0.5.6
 	github.com/morikuni/failure v0.14.0
